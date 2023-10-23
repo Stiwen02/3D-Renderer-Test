@@ -1,0 +1,8 @@
+Programs:
+ - Python 3.x
+Python Modules:
+ - pygame (pip install -U pygame)
+Python Modules (Included in Python standard library):
+ - math
+ - time
+ - os

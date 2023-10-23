@@ -1,6 +1,4 @@
-import pygame
 import math
-import random
 
 class Vector3:
 	x: float = 0
@@ -57,6 +55,7 @@ def rotate_vector3(vector3: Vector3 = Vector3(), rotation: Vector3 = Vector3(), 
 	cosine_y = math.cos(math.radians(rotation.y))
 	sine_z = math.sin(math.radians(rotation.z))
 	cosine_z = math.cos(math.radians(rotation.z))
+	# Add Z axis to rotation.
 	
 	vector3 = Vector3(
 		vector3.z * sine_y + vector3.x * cosine_y,
