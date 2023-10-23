@@ -46,6 +46,34 @@ def add_vector3(a: Vector3 = Vector3(), b: Vector3 = Vector3()) -> Vector3:
 def subtract_vector3(a: Vector3 = Vector3(), b: Vector3 = Vector3()) -> Vector3:
 	return Vector3(a.x - b.x, a.y - b.y, a.z - b.z)
 
+def multiply_vector3(a: Vector3 = Vector3(), b: Vector3 = Vector3()) -> Vector3:
+	return Vector3(a.x * b.x, a.y * b.y, a.z * b.z)
+
+def divide_vector3(a: Vector3 = Vector3(), b: Vector3 = Vector3()) -> Vector3:
+	return Vector3(
+		(a.x / b.x) if not a.x == 0 and b.x == 0 else 0,
+		(a.y / b.y) if not a.y == 0 and b.y == 0 else 0,
+		(a.z / b.z) if not a.z == 0 and b.z == 0 else 0
+	)
+
+def lerp_vector3(a: Vector3 = Vector3(), b: Vector3 = Vector3(), t: float = 0.5) -> Vector3:
+	return add_vector3(
+		a,
+		multiply_vector3(
+			Vector3(t, t, t),
+			subtract_vector3(
+				b,
+				a
+			)
+		)
+	)
+
+def vector3_distance(a: Vector3 = Vector3(), b: Vector3 = Vector3()) -> float:
+    dx = b.x - a.x
+    dy = b.y - a.y
+    dz = b.z - a.z
+    return math.sqrt(dx ** 2 + dy ** 2 + dz ** 2)
+
 def rotate_vector3(vector3: Vector3 = Vector3(), rotation: Vector3 = Vector3(), pivot: Vector3 = Vector3(), offset: Vector3 = Vector3()):
 	vector3 = subtract_vector3(vector3, pivot)
 	
@@ -55,7 +83,6 @@ def rotate_vector3(vector3: Vector3 = Vector3(), rotation: Vector3 = Vector3(), 
 	cosine_y = math.cos(math.radians(rotation.y))
 	sine_z = math.sin(math.radians(rotation.z))
 	cosine_z = math.cos(math.radians(rotation.z))
-	# Add Z axis to rotation.
 	
 	vector3 = Vector3(
 		vector3.z * sine_y + vector3.x * cosine_y,
@@ -67,6 +94,12 @@ def rotate_vector3(vector3: Vector3 = Vector3(), rotation: Vector3 = Vector3(), 
 		vector3.x,
 		vector3.y * cosine_x - vector3.z * sine_x,
 		vector3.y * sine_x + vector3.z * cosine_x
+	)
+
+	vector3 = Vector3(
+		vector3.x * cosine_z - vector3.y * sine_z,
+		vector3.x * sine_z + vector3.y * cosine_z,
+		vector3.z
 	)
 
 	return add_vector3(add_vector3(vector3, pivot), offset)
